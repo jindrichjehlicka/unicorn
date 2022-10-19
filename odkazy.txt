@@ -1,0 +1,2 @@
+MZCR: https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/nakaza.csv
+CZSO: https://www.czso.cz/csu/czso/hoste-a-prenocovani-v-hotelich-podle-zemi

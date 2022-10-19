@@ -1,0 +1,5 @@
+Argument	read.csv	read.csv2	Description
+header	TRUE	TRUE	The CSV file has a header row.
+sep	'',''	'';''	The separator is a comma or semicolon.
+dec	''.''	'',''	The decimal is a period or a comma.
+
