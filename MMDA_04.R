@@ -9,7 +9,7 @@ install.packages("MLmetrics")
 install.packages("olsrr")
 install.packages("lmtest")
 install.packages("MASS")
-
+library(matlib)
 # Predpoklady KLRM
 ##### PRIKLAD 1 #####
 # Import datasets: usacities.csv
@@ -104,8 +104,6 @@ X4_2 = model.matrix(reg4_2)    # matice vysvetlujicich promennych (vcetne konsta
 X4_2b <- X4_2[, 2:8]    # matice vysvetlujicich promennych (bez konstanty)
 R4_2 <- cor(X4_2b) # korelacni matice
 print(R4_2)
-corrplot(R4_2, "number")
-
 det(R4_2) # determinant matice R
 R4_2I <- inv(R4_2) # inverzni matice R-1
 VIF4_2 <- diag(R4_2I) # VIF faktory
@@ -131,8 +129,7 @@ reg4_2a <- lmridge(Cena_prodej ~ Motor +
   Dalnice_MPG +
   Vaha +
   Delka,
-                   # data = Cars_data2, K = seq(0, 0.05, 0.001))
-                   data = Cars_data2, K = seq(0, 0.006, 0.001))
+                   data = Cars_data2, K = seq(0, 0.05, 0.001))
 summary(reg4_2a)
 coef(reg4_2a)
 plot(reg4_2a, type = "ridge")
@@ -202,7 +199,6 @@ Cars_data_pred$Cena_prodej
 
 # odhad stredni ctvercove chyby MSE
 library(MLmetrics)
-#chceme nizsi hodnotu
 MSE(predikce_lm$fit[, 1], Cars_data_pred$Cena_prodej)  # MSE pro klasicky linearmi model
 MSE(predikce_lmridge, Cars_data_pred$Cena_prodej) # MSE pro hrebenovou regresi
 
@@ -249,6 +245,7 @@ library(olsrr)
 ols_test_breusch_pagan(reg4_1a) # H0 nema byt zamitnuta
 ols_test_f(reg4_1a)  # H0 nema byt zamitnuta
 ols_test_score(reg4_1a) # H0 nema byt zamitnuta
+
 
 ##### PRIKLAD 4 #####
 library(olsrr)
