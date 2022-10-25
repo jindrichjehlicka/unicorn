@@ -24,11 +24,11 @@ getwd()
 # setwd("DIRECTORY")
 dir()
 
-dir.create("test")
+dir.create("../test")
 dir()
 getwd()
 setwd("//Users//jindrichjehlicka//dev//unicorn")
-file.create("./test/test.txt")
+file.create("../test/test.txt")
 
 
 2 * 3

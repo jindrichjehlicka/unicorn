@@ -9,9 +9,9 @@
 getwd()
 dir.create("./cviceni_r")
 setwd("./cviceni_r")
-file.create("novy_soubor.txt")
+file.create("../../Other/novy_soubor.txt")
 line <- "Hello world!"
-write(line, file = "novy_soubor.txt", append = TRUE)
+write(line, file = "../../Other/novy_soubor.txt", append = TRUE)
 setwd("./unicorn")
 getwd()
 unlink("./cviceni_r", recursive = TRUE)

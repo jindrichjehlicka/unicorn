@@ -14,7 +14,9 @@ install.packages("MASS")
 ##### PRIKLAD 1 #####
 # Import datasets: usacities.csv
 # prvotni regresni model
-usacities <- read.csv("./04/usacities.csv", sep = ";", dec = ".")
+getwd()
+usacities <- read.csv("./MMDA/04/usacities.csv", sep = ";", dec = ".")
+describe(usacities)#??
 reg4_1 <- lm(Mortality ~ Rainfall +
   Education +
   Popden +
@@ -26,8 +28,9 @@ summary(reg4_1)
 # analyza rezidui
 plot(reg4_1$residuals)
 hist(reg4_1$residuals)
-shapiro.test(reg4_1$residuals)
+shapiro.test(reg4_1$residuals) #vic jak 0.05 aby byla normalne rozdelena
 library(MASS)
+#jacknife rezidua
 jack4_1 <- studres(reg4_1)
 library(ggplot2)
 ggplot(reg4_1, aes(x = .fitted, y = jack4_1)) +
@@ -68,7 +71,7 @@ corrplot(R4_1, "number")
 det(R4_1)
 
 # 2. moznost - VIF faktory
-Sys.setenv(RGL_USE_NULL=TRUE)
+Sys.setenv(RGL_USE_NULL = TRUE)
 library(matlib) #????
 R4_1I <- inv(R4_1) # inverzni matice R-1
 print(R4_1I)
@@ -83,7 +86,7 @@ omcdiag(reg4_1a) # optimalni vysledek same nuly u vsech testu
 
 ##### PRIKLAD 2 #####
 # Import datasets: Cars.csv
-Cars <- read.csv("./04/Cars.csv", sep = ";", dec = ",")
+Cars <- read.csv("./MMDA/04/Cars.csv", sep = ";", dec = ",")
 
 Cars_data <- Cars[1:428, 7:15] # vylouceni kvalitativnich promennych
 Cars_data2 <- Cars_data[-335,] # odstraneni extremniho pozorovani - uz o nem vime z minula
@@ -246,6 +249,7 @@ library(olsrr)
 
 # pro test pouzit vysledny model z Prikladu 1: reg4_1a (viz radek 39)
 # testy heteroskedasticity
+plot(reg4_1$residuals)
 ols_test_breusch_pagan(reg4_1a) # H0 nema byt zamitnuta
 ols_test_f(reg4_1a)  # H0 nema byt zamitnuta
 ols_test_score(reg4_1a) # H0 nema byt zamitnuta
@@ -256,14 +260,15 @@ library(olsrr)
 # vybran model bez korelovanych vysvetlujicich promennych
 reg4_4 <- lm(Cena_prodej ~ Horsepower + Dalnice_MPG,
              data = Cars_data2)
-
-# testy heteroskedasticity
+plot(reg4_4$residuals)
+# testy heteroskedasticity -> vetsi nez hladina vyznamnosti (1%,5%,10%)
 ols_test_breusch_pagan(reg4_4) # H0 nema byt zamitnuta
 ols_test_f(reg4_4)  # H0 nema byt zamitnuta
 ols_test_score(reg4_4)  # H0 nema byt zamitnuta
 
 # vazena MNC pro heteroskedasticitu (odhady rozptylu nahodne slozky pres zavislost rezidui na vyrovnanych hodnotach) - vaha se vzdy zadava od modelu jako odhad W = 1/odhad rozptylu
-# postupne vytvoreni vah 
+# postupne vytvoreni vah
+# vazena metdoa nejmensich ctvercu - umoznuje pracovat s heterosk. modelem
 vahovy.model <- lm(abs(reg4_4$residuals) ~ reg4_4$fitted.values) #regresni model zavislost absolutni hodnoty rezidui na vyrovnanych hodnotach
 vaha <- 1 / (vahovy.model$fitted.values^2)
 vaha
@@ -275,12 +280,17 @@ weights4_4
 # regresni model - vazena MNC
 reg4_4w <- lm(Cena_prodej ~ Horsepower + Dalnice_MPG,
               data = Cars_data2, weights = weights4_4) #nebo vaha (weights a vaha vyjdou stejne)
+#p-values -> pokud jsou mensi nez hladina vyznamnosti tak jsou vyznamne
+#r-squared -> index determinantu -> procento vysvetlenych promenych
+#std. error -> smerodatne chyby -> mensi je lepsi
 summary(reg4_4w) # vazena MNC
 summary(reg4_4)  # puvodni heteroskedasticky model
 
 # grafy rezidui
+#neslouzi k odstraneni heteroskedasticity -> vahy pomahaji s lepsimi predikcemi
 plot(reg4_4$residuals)
 plot(reg4_4w$residuals)
+#odstranit heteroskedascticitu jde vyloucenim promennych nebo zvoloenim jineho modelu
 
 #graficke srovnani - ale pouze jednorozmerne - Horsepower
 library(ggplot2)

@@ -14,7 +14,7 @@ library(matlib)
 ##### PRIKLAD 1 #####
 # Import datasets: usacities.csv
 # prvotni regresni model
-usacities <- read.csv("./04/usacities.csv", sep = ";", dec = ".")
+usacities <- read.csv("./04/usacities.csv", sep = ";", dec = "..")
 reg4_1 <- lm(Mortality ~ Rainfall +
   Education +
   Popden +

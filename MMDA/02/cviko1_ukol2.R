@@ -166,21 +166,21 @@ cycle(mesic1)
 
 getwd()
 # setwd("")
-carka <- read.table("carka.csv", sep = ",", header = T)
+carka <- read.table("../../Other/carka.csv", sep = ",", header = T)
 carka
 
-strednik <- read.table("strednik.csv", sep = ";", header = T, dec = ",")
+strednik <- read.table("../../Other/strednik.csv", sep = ";", header = T, dec = ",")
 strednik
 
-carka2 <- read.csv("carka.csv")
+carka2 <- read.csv("../../Other/carka.csv")
 carka2
-strednik2 <- read.csv2("strednik.csv")
+strednik2 <- read.csv2("../../Other/strednik.csv")
 strednik2
 
-rozdily <- read.table("rozdily.txt", sep = "\t")
+rozdily <- read.table("../../Other/rozdily.txt", sep = "\t")
 rozdily
 
-odkazy <- read.table("odkazy.txt")
+odkazy <- read.table("../../Other/odkazy.txt")
 odkazy
 
 url <- "https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/nakazeni-vyleceni-umrti-testy.csv"
@@ -203,14 +203,14 @@ library(rvest)
 html_encoding_guess(hoste$stapro_txt)
 
 library(readxl)
-excel <- read_xls("excel.xls")
+excel <- read_xls("../../Other/excel.xls")
 excel
 
 excel_data_frame <- as.data.frame(excel)
 getwd()
-setwd("/Users/jindrichjehlicka/dev/unicorn")
-excel2 <- read_xlsx("excel2.xlsx")
-excel2 <- read_excel("excel2.xlsx", skip = 2)
+setwd("/")
+excel2 <- read_xlsx("../../Other/excel2.xlsx")
+excel2 <- read_excel("../../Other/excel2.xlsx", skip = 2)
 excel2
 
 
@@ -220,8 +220,8 @@ soubor <- my_data_frame[my_data_frame$Year >= 2000,]
 
 soubor
 
-write.csv(soubor, file = "soubor.csv", row.names = F)
-write.table(soubor, file = "soubor.txt", sep = ";", dec = ".")
+write.csv(soubor, file = "../../Other/soubor.csv", row.names = F)
+write.table(soubor, file = "../../Other/soubor.txt", sep = ";", dec = "")
 
 
 dim(mtcars)
@@ -288,7 +288,7 @@ tapply(mtcars$mpg, INDEX = list(mtcars$hp > mean(mtcars$hp), mtcars$cyl), FUN = 
 # uloha
 
 # načtěte dataset uloha.csv
-ukol <- read.csv2("uloha.csv", header = T)
+ukol <- read.csv2("../../Other/uloha.csv", header = T)
 ukol
 # prozkoumejte soubor
 

@@ -208,7 +208,7 @@ excel
 
 excel_data_frame <- as.data.frame(excel)
 getwd()
-setwd("/Users/jindrichjehlicka/dev/unicorn")
+setwd("/")
 excel2 <- read_xlsx("excel2.xlsx")
 excel2 <- read_excel("excel2.xlsx", skip = 2)
 excel2
@@ -221,7 +221,7 @@ soubor <- my_data_frame[my_data_frame$Year >= 2000,]
 soubor
 
 write.csv(soubor, file = "soubor.csv", row.names = F)
-write.table(soubor, file = "soubor.txt", sep = ";", dec = ".")
+write.table(soubor, file = "soubor.txt", sep = ";", dec = "..")
 
 
 dim(mtcars)
